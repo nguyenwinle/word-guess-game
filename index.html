@@ -8,8 +8,8 @@
 </head>
 
 <body>
-
-    <h1>Press Any Key To Start</h1>
+    <h1>Hangman</h1>
+    <h2>Press Any Key To Start</h2>
 
     <h2>Wins</h2>
     <div class="wins"> </div>
@@ -23,24 +23,25 @@
     <div class="guess-remain"></div>
 
 
-    <h3>Letters Gussed so far</h3>
+    <h3>Letters Guessed so far</h3>
     <div class="your-guess"></div>
 
 
     <script>
         $(document).ready(function () {
             var wins = 0;
-            var words = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia", "Herzegovina"];
+            var guesses = 10;
+            var words = ["tea", "easy", "cool", "win", "begin"];
             var computerGuess = words[Math.floor(Math.random() * words.length)];
             //This creates an array for random word
             var letters = computerGuess.split("");
             var dashes = [];
-            var word = [];
+            var guessletters = [];
 
             for (var i = 0; i < letters.length; i++) {
                 var letter = letters[i];
                 dashes.push("-");
-                document.querySelector("#cword").innerHTML = dashes;
+                document.querySelector("#cword").innerHTML = dashes.join(" ");
             }
 
             document.onkeyup = function(event) {
@@ -49,52 +50,57 @@
 
                 for (var j = 0; j < letters.length; j++) {
                     var char = letters[j];
-                    
                     if (userInput === char) {
                         dashes[j] = char;
-                        document.querySelector("#cword").innerHTML = dashes;
+                        document.querySelector("#cword").innerHTML = dashes.join(" ");
+                    }   
+                }
+                
+                if (userInput) {
+                    guesses--;
+                    guessletters.push(userInput);
+                    document.querySelector(".guess-remain").innerHTML = guesses;
+                    document.querySelector(".your-guess").innerHTML = guessletters.join(" ");
 
+                    for (var k = 0; k < userInput.length; k++) {
+                        $(".yourguesses").append(userInput);
+                        //document.querySelector(".col-md-1").innerHTML = guessLetters;
                     }
-                    
-             
                 }
 
-                //   var check = computerGuess.includes(userInput);
+                if (!dashes.includes("-")) {
+                    alert("You win!");
+                    wins = wins + 1;
+                    document.querySelector(".guess-remain").innerHTML = "10";
+                    guesses = 10;
+                    guessletters = [];
+                    document.querySelector(".wins").innerHTML = wins;
+                    document.querySelector(".your-guess").innerHTML = "";
+                    document.querySelector("#cword").innerHTML = "";
+                    dashes = [];
 
-                //   for (var j = 0; j < dashes.length; j++) {
-                //     var dash = dashes[i];
-                //     if (check === true) {
-                //         console.log(true);
-                //         var dash = dashes[j];
-                //         if (userInput === letters[j]) {
-                //             console.log(letters[j]);
-                //             dash = letters[j];
+                    var advance = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia", "Herzegovina"];
+                    var computer = advance[Math.floor(Math.random() * advance.length)];
+                    //This creates an array for random word
+                    var chars = computer.split("");
 
-                //             console.log(dashes);
-            
-                //         }   
-                //       }
+
+                    for (var l = 0; l < chars.length; l++) {
+                        dashes.push("-");
+                        document.querySelector("#cword").innerHTML = dashes.join(" ");
+                    }
+
+                }
+
+                if (guesses === 0) {
+                    alert("You lose!");
+                    window.location.reload();
                     
-                //   }
+                }
+        
+                
             }
-            
-            // document.querySelector("#cword").innerHTML = dashes.join(" ");
-            // console.log(word);
-            // console.log(dashes);          
+       
 
         });
     </script>
-
-
-
-
-
-
-
-
-
-
-
-</body>
-
-</html>
