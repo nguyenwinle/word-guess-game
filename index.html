@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hangman</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+    <h1>Press Any Key To Start</h1>
+
+    <h2>Wins</h2>
+    <div class="wins"> </div>
+
+
+    <h3>current word</h3>
+    <div id="cword"></div>
+
+
+    <h3>Number of Guesses Remaining</h3>
+    <div class="guess-remain"></div>
+
+
+    <h3>Letters Gussed so far</h3>
+    <div class="your-guess"></div>
+
+
+    <script>
+        $(document).ready(function () {
+            var wins = 0;
+            var words = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia", "Herzegovina"];
+            var computerGuess = words[Math.floor(Math.random() * words.length)];
+            //This creates an array for random word
+            var letters = computerGuess.split("");
+            var dashes = [];
+            var word = [];
+
+            for (var i = 0; i < letters.length; i++) {
+                var letter = letters[i];
+                dashes.push("-");
+                document.querySelector("#cword").innerHTML = dashes;
+            }
+
+            document.onkeyup = function(event) {
+                var userInput = event.key;
+                // loop through dash and loop through word
+
+                for (var j = 0; j < letters.length; j++) {
+                    var char = letters[j];
+                    
+                    if (userInput === char) {
+                        dashes[j] = char;
+                        document.querySelector("#cword").innerHTML = dashes;
+
+                    }
+                    
+             
+                }
+
+                //   var check = computerGuess.includes(userInput);
+
+                //   for (var j = 0; j < dashes.length; j++) {
+                //     var dash = dashes[i];
+                //     if (check === true) {
+                //         console.log(true);
+                //         var dash = dashes[j];
+                //         if (userInput === letters[j]) {
+                //             console.log(letters[j]);
+                //             dash = letters[j];
+
+                //             console.log(dashes);
+            
+                //         }   
+                //       }
+                    
+                //   }
+            }
+            
+            // document.querySelector("#cword").innerHTML = dashes.join(" ");
+            // console.log(word);
+            // console.log(dashes);          
+
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
